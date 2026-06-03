@@ -1,0 +1,20 @@
+Category,Site,Source Type,API Available?,Difficulty,Notes
+Video Reviews,YouTube,"Videos, transcripts, comments",Yes,Easy,YouTube Data API. Transcripts available via libraries/services.
+Video Reviews,Vimeo,Videos,Yes,Medium,Much smaller golf presence.
+Community,Reddit,"Posts, comments",Yes,Easy,Official API available. Excellent for sentiment analysis.
+Community,GolfWRX Forums,Forum discussions,No,Medium,Scraping required. Extremely valuable data source.
+Community,The Hackers Paradise Forum,Forum discussions,No,Medium,Active equipment discussions.
+Retail Reviews,PGA TOUR Superstore,Product reviews,No public API,Medium,Scraping likely required.
+Retail Reviews,GlobalGolf,Product reviews,No public API,Medium,Scraping.
+Retail Reviews,2nd Swing Golf,Product reviews,No public API,Medium,Large used-club inventory and reviews.
+Retail Reviews,Carl's Place,Simulator reviews,No public API,Easy,Smaller review volume but simulator-focused.
+Retail Reviews,Amazon,Product reviews,No practical API,Hard,Scraping is difficult and legally sensitive.
+Expert Reviews,MyGolfSpy,"Reviews, rankings",No,Easy,Scrape article metadata and scores.
+Expert Reviews,Golf Monthly,Reviews,No,Easy,Strong simulator coverage.
+Expert Reviews,Today's Golfer,Reviews,No,Easy,Product testing content.
+Expert Reviews,Golf Digest,"Reviews, Hot List",No,Easy,Strong authority signal.
+Expert Reviews,Golf.com,Reviews,No,Easy,Good supplemental source.
+Manufacturer,Foresight Sports,Product specs,No public API,Easy,Great for specifications.
+Manufacturer,SkyTrak Golf,Product specs,No public API,Easy,Product details.
+Manufacturer,Uneekor,Product specs,No public API,Easy,Product details.
+Manufacturer,Garmin Golf,Product specs,No public API,Easy,Product details.

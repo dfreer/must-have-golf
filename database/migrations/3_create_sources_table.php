@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('sources', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignUlid('source_context_id')->constrained('source_contexts');
+            $table->foreignUlid('source_context_id');
             $table->string('name');
             $table->string('type');
-            $table->string('url');
-            $table->decimal('score', 4, 2)->nullable();
-            $table->decimal('score_override', 4, 2)->nullable();
+            $table->decimal('score', 4, 2);
+            $table->decimal('score_override', 4, 2);
             $table->timestamps();
         });
     }

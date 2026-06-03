@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('product_scores', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignUlid('product_id')->constrained('products');
-            $table->foreignUlid('review_id')->constrained('product_reviews');
-            $table->foreignUlid('source_id')->constrained('sources');
-            $table->foreignUlid('source_context_id')->constrained('source_contexts');
+            $table->foreignUlid('product_id');
+            $table->foreignUlid('review_id');
+            $table->foreignUlid('source_id');
+            $table->foreignUlid('source_context_id');
             $table->decimal('score', 4, 2);
             $table->decimal('score_override', 4, 2)->nullable();
             $table->timestamps();

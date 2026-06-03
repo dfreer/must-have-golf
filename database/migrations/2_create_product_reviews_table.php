@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignUlid('product_id')->constrained('products');
+            $table->foreignUlid('product_id');
             $table->string('status')->default(ProductReviewStatus::Pending);
             $table->timestamps();
         });

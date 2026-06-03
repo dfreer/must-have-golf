@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('source_contexts', function (Blueprint $table) {
+        Schema::create('product_images', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('name');
-            $table->string('type');
-            $table->string('url')->unique()->nullable();
-            $table->decimal('score', 4, 2)->nullable();
-            $table->decimal('score_override', 4, 2)->nullable();
+            $table->foreignUlid('product_id');
+            $table->string('url');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('source_contexts');
+        Schema::dropIfExists('product_images');
     }
 };

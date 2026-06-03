@@ -63,7 +63,7 @@ A queued job responsible for **bootstrapping a new product** with its core data 
 Triggered when a product is created or manually dispatched from the admin. Does the following:
 
 1. **Enrich product metadata** — Given just a product name, use an external source (manufacturer page scrape or an AI lookup) to populate: `description`, `release_date`, and affiliate `url` entries.
-2. **Fetch product image** — Download the primary product image and attach it to the product via `spatie/laravel-medialibrary`. Store in the `product-images` media collection.
+2. **Fetch product image** — Download the primary product image and attach it to the product via `spatie/laravel-medialibrary`. Store in the `images` media collection.
 3. **Update status** — Set `Product.status` to `Active` on success, leave as `Draft` on failure.
 
 #### MHG Score Engine

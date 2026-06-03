@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Enums\SourceContextType;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 
-#[Fillable(['name', 'type', 'score', 'score_override'])]
+#[Fillable(['name', 'type', 'url', 'score', 'score_override'])]
 class SourceContext extends BaseModel
 {
     protected $casts = [

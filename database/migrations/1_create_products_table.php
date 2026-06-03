@@ -15,9 +15,10 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->string('name');
-            $table->string('slug');
-            $table->string('status')->default(ProductStatus::Active);
-            $table->string('description')->nullable();
+            $table->string('slug')->unique();
+            $table->string('sku')->nullable();
+            $table->string('status')->default(ProductStatus::Draft);
+            $table->text('description')->nullable();
             $table->decimal('score', 4, 2)->nullable();
             $table->date('release_date')->nullable();
             $table->timestamps();

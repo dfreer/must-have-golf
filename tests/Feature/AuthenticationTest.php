@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Media;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
@@ -72,5 +73,18 @@ class AuthenticationTest extends TestCase
             ->assertRedirect(route('home'));
 
         $this->assertGuest();
+    }
+
+    public function test_media_created_by_an_authenticated_user_is_owned_by_that_user(): void
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $media = Media::factory()->create([
+            'model_type' => User::class,
+            'model_id' => $user->id,
+        ]);
+
+        $this->assertSame($user->id, $media->user_id);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\MediaCollectionEnum;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -12,6 +13,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
 
 /**
  * @property string $id
@@ -24,10 +28,12 @@ use Illuminate\Support\Carbon;
  */
 #[Fillable(['name', 'email', 'email_verified_at'])]
 #[Hidden(['remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasUlids, Notifiable;
+    use HasFactory, HasUlids, InteractsWithMedia, Notifiable;
+
+    protected $appends = ['avatar'];
 
     /**
      * Get the attributes that should be cast.
@@ -45,5 +51,17 @@ class User extends Authenticatable
     public function socialAccounts(): HasMany
     {
         return $this->hasMany(SocialAccount::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection(MediaCollectionEnum::Avatar->value)->singleFile();
+    }
+
+    public function getAvatarAttribute(): ?string
+    {
+        $avatar = $this->getFirstMedia(MediaCollectionEnum::Avatar->value);
+
+        return $avatar instanceof SpatieMedia ? $avatar->getUrl() : null;
     }
 }

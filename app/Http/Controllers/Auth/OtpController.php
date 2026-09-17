@@ -4,23 +4,20 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\SocialiteProvidersEnum;
 use App\Http\Controllers\Controller;
-use App\Models\SocialAccount;
 use App\Models\User;
 use App\Notifications\LoginOtpNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
-use Laravel\Socialite\Facades\Socialite;
-use Throwable;
 
-class AuthenticationController extends Controller
+class OtpController extends Controller
 {
     public function showLogin(): Response
     {
@@ -106,59 +103,6 @@ class AuthenticationController extends Controller
         Auth::login($user, true);
         $request->session()->regenerate();
         $request->session()->forget('auth.otp.email');
-
-        return to_route('home');
-    }
-
-    public function redirectToProvider(SocialiteProvidersEnum $provider): \Symfony\Component\HttpFoundation\RedirectResponse
-    {
-        return Socialite::driver($provider->value)->redirect();
-    }
-
-    public function handleProviderCallback(Request $request, SocialiteProvidersEnum $provider): RedirectResponse
-    {
-        try {
-            $socialUser = Socialite::driver($provider->value)->user();
-        } catch (Throwable) {
-            return to_route('auth.login')->withErrors([
-                'social' => 'We could not sign you in with that provider.',
-            ]);
-        }
-
-        $socialAccount = SocialAccount::query()
-            ->where('provider', $provider)
-            ->where('provider_id', $socialUser->getId())
-            ->first();
-
-        $user = $socialAccount?->user;
-
-        if ($user === null && is_string($socialUser->getEmail())) {
-            $user = User::firstOrCreate(
-                ['email' => Str::lower($socialUser->getEmail())],
-                [
-                    'name' => $socialUser->getName() ?: $socialUser->getNickname() ?: 'Golf fan',
-                    'email_verified_at' => now(),
-                ],
-            );
-        }
-
-        if ($user === null) {
-            return to_route('auth.login')->withErrors([
-                'social' => 'This provider did not return an email address.',
-            ]);
-        }
-
-        $socialAccount = SocialAccount::firstOrNew(
-            [
-                'provider' => $provider,
-                'provider_id' => $socialUser->getId(),
-            ],
-        );
-        $socialAccount->user()->associate($user);
-        $socialAccount->save();
-
-        Auth::login($user, true);
-        $request->session()->regenerate();
 
         return to_route('home');
     }

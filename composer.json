@@ -15,7 +15,8 @@
         "laravel/socialite": "^5.31",
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "^0.1.14",
-        "socialiteproviders/apple": "^6.0"
+        "socialiteproviders/apple": "^6.0",
+        "spatie/laravel-medialibrary": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",

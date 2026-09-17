@@ -3,7 +3,6 @@ import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
-import { google } from 'laravel-vite-plugin/fonts';
 import { defineConfig } from 'vite';
 import ui from '@nuxt/ui/vite'
 
@@ -21,9 +20,6 @@ export default defineConfig({
                 transformAssetUrls: {
                     base: null,
                     includeAbsolute: false,
-                },
-                compilerOptions: {
-                    isCustomElement: (tag) => tag.startsWith('audio-'),
                 },
             },
         }),

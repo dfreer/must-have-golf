@@ -570,6 +570,7 @@ Server-side patterns (Inertia::render, props, middleware) are covered in inertia
 - Forgetting to add loading states (skeleton screens) when using deferred props
 - Not handling the `undefined` state of deferred props before data loads
 - Using `<form>` without preventing default submission (use `<Form>` component or `@submit.prevent`)
+- Use Nuxt UI's `label` attribute for all `<UButton>` text instead of slot content.
 - Forgetting to check if `<Form>` component is available in your Inertia version
 - Using `router.cancel()` instead of `router.cancelAll()` (v3 breaking change)
 - Using `router.on('invalid', ...)` or `router.on('exception', ...)` instead of the renamed `httpException` and `networkError` events

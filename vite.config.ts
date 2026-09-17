@@ -45,10 +45,7 @@ export default defineConfig({
                     slots: { root: 'w-full mb-6', label: 'block font-medium text-base', },
                 },
                 input: {
-                    slots: {
-                        root: 'w-full',
-                        base: 'w-full !ring-0 !outline-none focus-visible:!ring-2 focus-visible:!ring-primary',
-                    },
+                    slots: { root: 'w-full', base: 'w-full' },
                     defaultVariants: { size: 'lg' },
                 },
                 textarea: {

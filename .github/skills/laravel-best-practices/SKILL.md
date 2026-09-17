@@ -57,3 +57,7 @@ Cross-cutting changes often need more than one rule file.
 - Prefer framework features and existing application abstractions over new helpers or dependencies.
 - Avoid speculative abstractions. Extract code when it creates a clear domain boundary, removes meaningful duplication, or makes behavior independently testable.
 - Keep database access out of Blade views and prevent hidden N+1 queries across controllers, resources, jobs, and serialization.
+- Never include relationship or foreign-key attributes in a model's fillable list. Set relationships explicitly with Eloquent methods such as `save()`, `associate()`, or `attach()`.
+- Do not add database-enforced foreign-key constraints or cascade actions. Relationship integrity and cascading behavior are managed by the application.
+- Keep route files declarative: route behavior belongs in controllers, with route-level redirects as the exception.
+- Create a corresponding factory whenever a model is created. Factories must only define the model's own attributes; create relationships explicitly in tests or other setup code.

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+
+defineOptions({ layout: DefaultLayout });
 </script>
 
 <template>

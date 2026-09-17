@@ -20,7 +20,7 @@ export default defineConfig({
         }),
         inertia(),
         tailwindcss(),
-        nuxtui(),
+        nuxtui({ router: 'inertia' }),
         vue({
             template: {
                 transformAssetUrls: {

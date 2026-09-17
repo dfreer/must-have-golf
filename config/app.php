@@ -13,6 +13,8 @@ return [
     |
     */
 
+    'domain' => env('APP_DOMAIN', 'localhost'),
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
@@ -114,7 +116,7 @@ return [
     | manage Laravel's "maintenance mode" status. The "cache" driver will
     | allow maintenance mode to be controlled across multiple machines.
     |
-    | Supported drivers: "file", "cache"
+    | Supported drivers: "file", "cache", "array"
     |
     */
 

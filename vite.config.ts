@@ -3,80 +3,84 @@ import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
-import nuxtui from '@nuxt/ui/vite';
-import { bunny } from 'laravel-vite-plugin/fonts';
-import { defineConfig, lazyPlugins } from 'vite-plus';
+import { google } from 'laravel-vite-plugin/fonts';
+import { defineConfig } from 'vite';
+import ui from '@nuxt/ui/vite'
 
 export default defineConfig({
-    plugins: lazyPlugins(() => [
+    plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.ts'],
             refresh: true,
-            fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
-            ],
+            fonts: [],
         }),
         inertia(),
         tailwindcss(),
-        nuxtui({ router: 'inertia' }),
         vue({
             template: {
                 transformAssetUrls: {
                     base: null,
                     includeAbsolute: false,
                 },
+                compilerOptions: {
+                    isCustomElement: (tag) => tag.startsWith('audio-'),
+                },
             },
         }),
         wayfinder({
             formVariants: true,
         }),
-    ]),
-    server: {
-        watch: {
-            ignored: [
-                '**/.agents/**',
-                '**/.claude/**',
-                '**/.cursor/**',
-                '**/.junie/**',
-                '**/vendor/**',
-            ],
-        },
-    },
-    lint: {
-        ignorePatterns: [
-            'vendor/**',
-            'node_modules/**',
-            'public/**',
-            'bootstrap/ssr/**',
-            'tailwind.config.js',
-            'resources/js/actions/**',
-            'resources/js/components/ui/*',
-            'resources/js/routes/**',
-            'resources/js/wayfinder/**',
-        ],
-        options: {
-            denyWarnings: true,
-            typeAware: true,
-        },
-    },
-    fmt: {
-        printWidth: 80,
-        tabWidth: 4,
-        singleQuote: true,
-        semi: true,
-        singleAttributePerLine: false,
-        htmlWhitespaceSensitivity: 'css',
-        ignorePatterns: [
-            '.github/**',
-            'composer.json',
-            'resources/js/components/ui/*',
-            'resources/views/mail/*',
-        ],
-        sortTailwindcss: {
-            functions: ['clsx', 'cn', 'cva'],
-            entryPoint: 'resources/css/app.css',
-        },
-    },
+        ui({
+            router: 'inertia',
+            ui: {
+                colors: {
+                    neutral: 'neutral',
+                },
+                avatar: {
+                    slots: {
+                        root: 'border-2',
+                    }
+                },
+                formField: {
+                    slots: { root: 'w-full mb-6', label: 'block font-medium text-base', },
+                },
+                input: {
+                    slots: {
+                        root: 'w-full',
+                        base: 'w-full !ring-0 !outline-none focus-visible:!ring-2 focus-visible:!ring-primary',
+                    },
+                    defaultVariants: { size: 'lg' },
+                },
+                textarea: {
+                    slots: { root: 'w-full' },
+                },
+                select: {
+                    slots: { base: 'w-full' },
+                },
+                button: {
+                    slots: { base: 'cursor-pointer' },
+                    defaultVariants: { variant: 'outline', color: 'neutral' },
+                },
+                switch: { slots: { base: 'cursor-pointer' } },
+                badge: {
+                    default: {},
+                },
+                card: {
+                    slots: {
+                        root: 'w-full mb-8 bg-transparent',
+                        header: 'flex w-full justify-between items-center text-default font-bold px-6 py-4 border-b border-default ring-0 empty:hidden',
+                        body: 'bg-default empty:hidden',
+                        footer: 'px-6 py-4 ring-0 empty:hidden',
+                    },
+                },
+                alert: {
+                    slots: { root: 'mb-8', }
+                },
+                table: {
+                    slots: { td: 'py-2 px-4', },
+                },
+                page: {},
+            }
+        })
+    ],
 });

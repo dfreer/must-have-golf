@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import auth from '@/routes/auth';
-
-defineOptions({ layout: DefaultLayout });
+import { Form } from '@inertiajs/vue3'
+import auth from '@/routes/auth'
 
 defineProps<{
-  providers: Array<{ value: string; label: string }>;
-}>();
+  providers: Array<{ value: string; label: string }>
+}>()
 </script>
 
 <template>
-
-  <Head title="Sign in" />
 
   <div class="mx-auto flex min-h-[calc(100vh-170px)] w-full max-w-md items-center px-6 py-16">
     <div class="w-full space-y-8">

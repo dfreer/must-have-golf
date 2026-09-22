@@ -11,8 +11,6 @@ class MediaObserver extends SpatieMediaObserver
     public function creating(Media $media): void
     {
         parent::creating($media);
-        if ($media instanceof \App\Models\Media) {
-            $media->user()->associate(Auth::user());
-        }
+        $media->user()->associate(Auth::user());
     }
 }

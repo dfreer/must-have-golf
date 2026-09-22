@@ -75,6 +75,52 @@ class AuthenticationTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_authenticated_user_can_update_their_golf_profile(): void
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $this->get(route('account.profile.show'))
+            ->assertSuccessful();
+
+        $this->put(route('account.profile.update'), [
+            'name' => 'Golf Fan',
+            'dexterity' => 'right',
+            'handicap' => '12.4',
+            'experience' => 'intermediate',
+        ])->assertRedirect(route('account.profile.show'))
+            ->assertSessionHas('toast', [
+                'title' => 'Profile saved',
+                'description' => 'Your golf profile has been updated.',
+                'color' => 'success',
+                'duration' => 5000,
+            ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => 'Golf Fan',
+            'dexterity' => 'right',
+            'handicap' => 12.4,
+            'experience' => 'intermediate',
+        ]);
+    }
+
+    public function test_golf_profile_rejects_an_invalid_handicap(): void
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $this->from(route('account.profile.show'))
+            ->put(route('account.profile.update'), [
+                'name' => $user->name,
+                'dexterity' => 'left',
+                'handicap' => '54.1',
+                'experience' => 'beginner',
+            ])
+            ->assertRedirect(route('account.profile.show'))
+            ->assertSessionHasErrors('handicap');
+    }
+
     public function test_media_created_by_an_authenticated_user_is_owned_by_that_user(): void
     {
         $user = User::factory()->create();

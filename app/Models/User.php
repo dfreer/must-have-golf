@@ -21,12 +21,15 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
  * @property string $id
  * @property string $name
  * @property string $email
+ * @property string|null $dexterity
+ * @property string|null $handicap
+ * @property string|null $experience
  * @property Carbon|null $email_verified_at
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'email', 'email_verified_at'])]
+#[Fillable(['name', 'email', 'email_verified_at', 'dexterity', 'handicap', 'experience'])]
 #[Hidden(['remember_token'])]
 class User extends Authenticatable implements HasMedia
 {

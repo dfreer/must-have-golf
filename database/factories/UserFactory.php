@@ -21,6 +21,9 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'dexterity' => fake()->randomElement(['left', 'right']),
+            'handicap' => fake()->randomFloat(1, 0, 36),
+            'experience' => fake()->randomElement(['beginner', 'intermediate', 'advanced', 'pro']),
         ];
     }
 

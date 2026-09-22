@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { Form, Head, Link } from '@inertiajs/vue3';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import auth from '@/routes/auth';
-
-defineOptions({ layout: DefaultLayout });
+import { Form, Link } from '@inertiajs/vue3'
+import auth from '@/routes/auth'
 
 defineProps<{
-  email: string;
-}>();
+  email: string
+}>()
 </script>
 
 <template>
-
-  <Head title="Verify sign-in code" />
 
   <div class="mx-auto flex min-h-[calc(100vh-170px)] w-full max-w-md items-center px-6 py-16">
     <div class="w-full space-y-8">

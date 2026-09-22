@@ -16,11 +16,16 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Laravel\Head\Facades\Head;
 
 class OtpController extends Controller
 {
     public function showLogin(): Response
     {
+        Head::title('Sign in')
+            ->description('Sign in to your Must Have Golf account.')
+            ->hiddenFromRobots();
+
         return Inertia::render('Auth/Login', [
             'providers' => collect(SocialiteProvidersEnum::cases())
                 ->map(fn(SocialiteProvidersEnum $provider): array => [
@@ -38,6 +43,10 @@ class OtpController extends Controller
         if (! is_string($email)) {
             return to_route('auth.login');
         }
+
+        Head::title('Verify sign-in code')
+            ->description('Verify your Must Have Golf sign-in code.')
+            ->hiddenFromRobots();
 
         return Inertia::render('Auth/VerifyOtp', [
             'email' => $email,

@@ -3,11 +3,32 @@ import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import ui from '@nuxt/ui/vite'
 
+const nuxtUiInertiaStub = fileURLToPath(new URL(
+    './node_modules/@nuxt/ui/dist/runtime/vue/stubs/inertia.js',
+    import.meta.url,
+));
+
 export default defineConfig({
+    resolve: {
+        alias: {
+            '#imports': nuxtUiInertiaStub,
+        },
+    },
+    ssr: {
+        noExternal: ['@nuxt/ui'],
+    },
     plugins: [
+        {
+            name: 'nuxt-ui-inertia-imports',
+            enforce: 'pre',
+            resolveId(id) {
+                return id === '#imports' ? nuxtUiInertiaStub : undefined;
+            },
+        },
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.ts'],
             refresh: true,
